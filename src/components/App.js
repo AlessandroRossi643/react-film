@@ -1,7 +1,8 @@
 import React from 'react';
 import '../App.css';
 import Header from './Header';
-import Movie from './Movie';
+import Cartoon from './Cartoon';
+import AddCartoon from './AddCartoon';
 import {initialCartoons} from '../cartoons';
 import {additionalCartoons} from '../cartoons';
 
@@ -9,30 +10,41 @@ class App extends React.Component {
 constructor() {
   super();
   this.loadAdditionalMovies = this.loadAdditionalMovies.bind(this);
+  this.addCartoonToGallery = this.addCartoonToGallery.bind(this);
 
   this.state = {
-    movies: initialCartoons
+    cartoons: initialCartoons
   };
 }
 
 loadAdditionalMovies() {
-  var currentCartoons = { ...this.state.movies };
+  var currentCartoons = { ...this.state.cartoons };
   var newCartoons = Object.assign( currentCartoons, additionalCartoons );
-  this.setState({ movies: newCartoons });
+  this.setState({ cartoons: newCartoons });
+}
+
+addCartoonToGallery(cartoon) {
+  var key = Date.now();
+  var newCartoon = {};
+  newCartoon[ 'cartoon' + key ] = cartoon;
+  var currentCartoons = { ...this.state.cartoons };
+  var newCartoons = Object.assign( currentCartoons, newCartoon );
+  this.setState({ cartoons: newCartoons });
 }
 
 render() {
-  var header="Discover Your Movie Mojo!";
+  var header="Scopri i personaggi che ti hanno appassionato da ragazzo!";
   return (
     <div className="App">
       <Header text= {header} sendFunction = {this.loadAdditionalMovies} />
       <h3 className="App-intro">Condividi i tuoi cartoni animati preferiti!</h3>
         <div className="movies">
         {  Object
-          .keys(this.state.movies)
-          .map(key => <Movie key={key} meta={this.state.movies[key]} />)
+          .keys(this.state.cartoons)
+          .map(key => <Cartoon key={key} meta={this.state.cartoons[key]}/>)
         }
         </div>
+        <AddCartoon addCartoon={this.addCartoonToGallery}/>
     </div>
   );
 }

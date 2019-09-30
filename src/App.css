@@ -30,6 +30,8 @@
   margin: 0;
 }
 
+
+
 .add{
   border-radius: 2px;
   color: white;
@@ -38,7 +40,7 @@
 
 .add-movies {
   text-align: center;
-  margin: 5px 0;
+  margin: 10px 0;
 }
 
 .add-movies button {
@@ -49,4 +51,32 @@
 .movie {
   padding: 5px 25px 10px 25px;
   max-width: 25%;
+}
+.code{
+  display: none;
+}
+
+/* movie form styles */
+
+.movie-form {
+  width: 250px;
+  margin: 0 auto;
+}
+
+.movie-form input, .movie-form textarea {
+  width: 250px;
+  font-size:14px;
+  padding: 5px;
+  margin: 5px;
+}
+
+.movie-form button {
+  font-size: 16px;
+  padding: 4px;
+  margin: 10px 10px 30px 10px;
+}
+
+
+.delete{
+  cursor: pointer;
 }
