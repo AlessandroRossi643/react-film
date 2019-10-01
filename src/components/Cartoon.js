@@ -10,9 +10,9 @@ class Cartoon extends Component {
       <div><img width="200" height="300" src={ this.props.meta.poster } /></div>
         <p>({ this.props.meta.year })</p>
         <p>{ this.props.meta.description }</p>
-        <input type="text" className="code" value={this.props.meta.code} readOnly/>
-        <i className="fas fa-times-circle delete"></i>
+        <i className="fas fa-times-circle delete" onClick={() => this.props.deleteCartoon(this.props.meta.code)}></i>
       </div>
+      /* Passare una variabile props alla funzione */
     );
   }
 }

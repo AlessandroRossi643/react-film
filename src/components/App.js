@@ -11,18 +11,21 @@ constructor() {
   super();
   this.loadAdditionalMovies = this.loadAdditionalMovies.bind(this);
   this.addCartoonToGallery = this.addCartoonToGallery.bind(this);
+  this.deleteCartoonFromGallery = this.deleteCartoonFromGallery.bind(this);
 
   this.state = {
     cartoons: initialCartoons
   };
 }
 
+// Aggiunta 4 card già stabilite
 loadAdditionalMovies() {
   var currentCartoons = { ...this.state.cartoons };
   var newCartoons = Object.assign( currentCartoons, additionalCartoons );
   this.setState({ cartoons: newCartoons });
 }
 
+// Aggiunta di una card
 addCartoonToGallery(cartoon) {
   var key = Date.now();
   var newCartoon = {};
@@ -31,6 +34,27 @@ addCartoonToGallery(cartoon) {
   var newCartoons = Object.assign( currentCartoons, newCartoon );
   this.setState({ cartoons: newCartoons });
 }
+
+// Eliminazione di un card
+deleteCartoonFromGallery(code_cartoon){
+  console.log(code_cartoon);
+  var currentCartoons = { ...this.state.cartoons };
+  var newCartoons = [];
+  var result = Object.keys(currentCartoons).map(function(key) {
+  return [currentCartoons[key]];
+  });
+
+  for (var i = 0; i < result.length; i++) {
+    var single_film=(result[i]);
+    for (var j = 0; j < single_film.length; j++) {
+
+      if (single_film[j].code!==code_cartoon) {
+        newCartoons.push(single_film[j]);
+      }
+    }
+  }
+  this.setState({cartoons:newCartoons});
+  }
 
 render() {
   var header="Scopri i personaggi che ti hanno appassionato da ragazzo!";
@@ -41,7 +65,7 @@ render() {
         <div className="movies">
         {  Object
           .keys(this.state.cartoons)
-          .map(key => <Cartoon key={key} meta={this.state.cartoons[key]}/>)
+          .map(key => <Cartoon key={key} meta={this.state.cartoons[key]} deleteCartoon = {this.deleteCartoonFromGallery}/>)
         }
         </div>
         <AddCartoon addCartoon={this.addCartoonToGallery}/>
