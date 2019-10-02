@@ -2,18 +2,13 @@ import React, { Component } from 'react';
 
 // Importando l'oggetto component, posso utilizzare l'ES6 direttamente richiamando Component, e non React.Component
 class Header extends Component {
-  constructor() {
-    super();
-    this.loadAdditionalMovies = this.loadAdditionalMovies.bind(this);
-  }
-  loadAdditionalMovies() {
-    this.props.sendFunction();
-  }
+  
   render() {
     return <div className="App-header">
       <h2>{this.props.text}</h2>
       <div className="add-movies">
-        <button className="add" onClick={this.loadAdditionalMovies}>Carica cartoni...</button>
+        <button className="movie-button" onClick={this.props.add}>Carica cartoni...</button>
+        <button className="movie-button" onClick={this.props.order}>Ordina cartoni per nome...</button>
       </div>
     </div>
   }

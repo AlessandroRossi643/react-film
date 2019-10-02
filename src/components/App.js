@@ -12,11 +12,13 @@ constructor() {
   this.loadAdditionalMovies = this.loadAdditionalMovies.bind(this);
   this.addCartoonToGallery = this.addCartoonToGallery.bind(this);
   this.deleteCartoonFromGallery = this.deleteCartoonFromGallery.bind(this);
+  this.orderCartoons = this.orderCartoons.bind(this);
 
   this.state = {
     cartoons: initialCartoons
   };
 }
+
 
 // Aggiunta 4 card già stabilite
 loadAdditionalMovies() {
@@ -24,6 +26,7 @@ loadAdditionalMovies() {
   var newCartoons = Object.assign( currentCartoons, additionalCartoons );
   this.setState({ cartoons: newCartoons });
 }
+
 
 // Aggiunta di una card
 addCartoonToGallery(cartoon) {
@@ -35,9 +38,9 @@ addCartoonToGallery(cartoon) {
   this.setState({ cartoons: newCartoons });
 }
 
+
 // Eliminazione di un card
 deleteCartoonFromGallery(code_cartoon){
-  console.log(code_cartoon);
   var currentCartoons = { ...this.state.cartoons };
   var newCartoons = [];
   var result = Object.keys(currentCartoons).map(function(key) {
@@ -56,11 +59,32 @@ deleteCartoonFromGallery(code_cartoon){
   this.setState({cartoons:newCartoons});
   }
 
+
+//Ordinamento delle card
+orderCartoons(){
+  var currentCartoons = { ...this.state.cartoons };
+  var newCartoons = [];
+  var result = Object.keys(currentCartoons).map(function(key) {
+  return [currentCartoons[key]];
+  });
+
+  for (var i = 0; i < result.length; i++) {
+    var single_film=(result[i]);
+    for (var j = 0; j < single_film.length; j++) {
+      newCartoons.push(single_film[j]);
+    }
+  }
+  newCartoons.sort(orderArray);
+  console.log(newCartoons);
+  this.setState({cartoons:newCartoons});
+}
+
+
 render() {
   var header="Scopri i personaggi che ti hanno appassionato da ragazzo!";
   return (
     <div className="App">
-      <Header text= {header} sendFunction = {this.loadAdditionalMovies} />
+      <Header text= {header} add={this.loadAdditionalMovies} order={this.orderCartoons} />
       <h3 className="App-intro">Condividi i tuoi cartoni animati preferiti!</h3>
         <div className="movies">
         {  Object
@@ -73,6 +97,15 @@ render() {
   );
 }
 }
+
+function orderArray(a,b){
+  if (a.title > b.title) { return 1; }
+  else {
+  if (a.title < b.title) { return -1; }
+  else { return 0; }
+  }
+}
+
 //
 // function App() {
 //   var header="Discover Your Movie Mojo!";

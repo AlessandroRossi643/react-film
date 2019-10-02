@@ -32,10 +32,11 @@
 
 
 
-.add{
+.movie-button{
   border-radius: 2px;
   color: white;
   background-color: black;
+  margin:2px;
 }
 
 .add-movies {
